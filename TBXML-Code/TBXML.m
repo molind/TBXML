@@ -240,6 +240,14 @@
 #pragma mark -
 #pragma mark Static Functions implementation
 
+@implementation TBXML (FastNameCompare)
+
++ (BOOL) isElementName:(TBXMLElement *)aXMLElement equalToCString:(const char *)aCString {
+    return (strcmp(aXMLElement->name, aCString) == 0);
+}
+
+@end
+
 @implementation TBXML (StaticFunctions)
 
 + (NSString*) elementName:(TBXMLElement*)aXMLElement {
@@ -301,7 +309,7 @@
 }
 
 + (NSString*) textForElement:(TBXMLElement*)aXMLElement {
-	if (nil == aXMLElement->text) return @"";
+	if (nil == aXMLElement || nil == aXMLElement->text) return @"";
 	return [NSString stringWithCString:&aXMLElement->text[0] encoding:NSUTF8StringEncoding];
 }
 

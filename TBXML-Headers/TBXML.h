@@ -176,6 +176,12 @@ typedef void (^TBXMLIterateBlock)(TBXMLElement *);
 //  TBXML Static Functions Interface
 // ================================================================================================
 
+@interface TBXML (FastNameCompare)
+
++ (BOOL) isElementName:(TBXMLElement *)aXMLElement equalToCString:(const char *)aCString;
+
+@end
+
 @interface TBXML (StaticFunctions)
 
 + (NSString*) elementName:(TBXMLElement*)aXMLElement;
