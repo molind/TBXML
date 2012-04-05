@@ -309,8 +309,20 @@
 }
 
 + (NSString*) textForElement:(TBXMLElement*)aXMLElement {
-	if (nil == aXMLElement || nil == aXMLElement->text) return @"";
-	return [NSString stringWithCString:&aXMLElement->text[0] encoding:NSUTF8StringEncoding];
+	NSString *str = nil;
+    
+    if (nil == aXMLElement || nil == aXMLElement->text) 
+        return str;
+    
+    if (aXMLElement->text[0]) {
+        str = [NSString stringWithCString:&aXMLElement->text[0] encoding:NSUTF8StringEncoding];
+    
+        if (!str) {
+            str = [NSString stringWithCString:&aXMLElement->text[0] encoding:NSISOLatin1StringEncoding];    
+        }
+    }
+    
+    return str;
 }
 
 + (NSString*) textForElement:(TBXMLElement*)aXMLElement error:(NSError **)error {
