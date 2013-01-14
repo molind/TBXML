@@ -209,6 +209,22 @@
 
 - (void) decodeData:(NSData*)data withError:(NSError **)error {
     
+    unsigned char bom[4];
+    [data getBytes:bom length:sizeof(bom)];
+    if (bom[0] == 0xFE && bom[1] == 0xFF) { // is utf-16 BE
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF16BigEndianStringEncoding];
+        data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    } else if (bom[0] == 0xFF && bom[1] == 0xFE) { // is utf-16 LE
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF16LittleEndianStringEncoding];
+        data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    } else if (bom[0] == 0 && bom[1] == 0x0 && bom[2] == 0xFE && bom[3] == 0xFF) { // is utf-32 BE
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF32BigEndianStringEncoding];
+        data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    } else if (bom[0] == 0xFF && bom[1] == 0xFE && bom[2] == 0 && bom[3] == 0) { // is utf-32 LE
+        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF32LittleEndianStringEncoding];
+        data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    }
+    
     // allocate memory for byte array
     [self allocateBytesOfLength:[data length] error:error];
 
@@ -218,7 +234,7 @@
     
     // copy data to byte array
     [data getBytes:bytes length:bytesLength];
-	
+    
 	// set null terminator at end of byte array
 	bytes[bytesLength] = 0;
 	
