@@ -137,6 +137,10 @@
     self = [self init];
     if (self != nil) {
 		// decode aData
+        if (!aData || [aData length] == 0) {
+            return nil;
+        }
+        
 		[self decodeData:aData withError:error];
     }
     
@@ -209,20 +213,22 @@
 
 - (void) decodeData:(NSData*)data withError:(NSError **)error {
     
-    unsigned char bom[4];
-    [data getBytes:bom length:sizeof(bom)];
-    if (bom[0] == 0xFE && bom[1] == 0xFF) { // is utf-16 BE
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF16BigEndianStringEncoding];
-        data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    } else if (bom[0] == 0xFF && bom[1] == 0xFE) { // is utf-16 LE
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF16LittleEndianStringEncoding];
-        data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    } else if (bom[0] == 0 && bom[1] == 0x0 && bom[2] == 0xFE && bom[3] == 0xFF) { // is utf-32 BE
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF32BigEndianStringEncoding];
-        data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    } else if (bom[0] == 0xFF && bom[1] == 0xFE && bom[2] == 0 && bom[3] == 0) { // is utf-32 LE
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF32LittleEndianStringEncoding];
-        data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    if ([data length] >= 4) {
+        unsigned char bom[4];
+        [data getBytes:bom length:sizeof(bom)];
+        if (bom[0] == 0xFE && bom[1] == 0xFF) { // is utf-16 BE
+            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF16BigEndianStringEncoding];
+            data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+        } else if (bom[0] == 0xFF && bom[1] == 0xFE) { // is utf-16 LE
+            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF16LittleEndianStringEncoding];
+            data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+        } else if (bom[0] == 0 && bom[1] == 0x0 && bom[2] == 0xFE && bom[3] == 0xFF) { // is utf-32 BE
+            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF32BigEndianStringEncoding];
+            data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+        } else if (bom[0] == 0xFF && bom[1] == 0xFE && bom[2] == 0 && bom[3] == 0) { // is utf-32 LE
+            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF32LittleEndianStringEncoding];
+            data = [str dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+        }
     }
     
     // allocate memory for byte array
@@ -640,16 +646,17 @@
 	
 	// set elementStart pointer to the start of our xml
 	char * elementStart=bytes;
+    char * stringEnd = elementStart + bytesLength;
 	
 	// set parent element to nil
 	TBXMLElement * parentXMLElement = nil;
-	
+
 	// find next element start
-	while ((elementStart = strstr(elementStart,"<"))) {
+	while ((elementStart = strnstr(elementStart,"<", stringEnd-elementStart))) {
 		
 		// detect comment section
 		if (strncmp(elementStart,"<!--",4) == 0) {
-			elementStart = strstr(elementStart,"-->") + 3;
+			elementStart = strnstr(elementStart,"-->", stringEnd-elementStart) + 3;
 			continue;
 		}
 
@@ -660,19 +667,19 @@
 		if (isCDATA==0) {
 			
 			// find end of cdata section
-			char * CDATAEnd = strstr(elementStart,"]]>");
+			char * CDATAEnd = strnstr(elementStart,"]]>", stringEnd-elementStart);
 			
 			// find start of next element skipping any cdata sections within text
 			char * elementEnd = CDATAEnd;
 			
 			// find next open tag
-			elementEnd = strstr(elementEnd,"<");
+			elementEnd = strnstr(elementEnd,"<", stringEnd-elementEnd);
 			// if open tag is a cdata section
 			while (strncmp(elementEnd,"<![CDATA[",9) == 0) {
 				// find end of cdata section
-				elementEnd = strstr(elementEnd,"]]>");
+				elementEnd = strnstr(elementEnd,"]]>", stringEnd-elementEnd);
 				// find next open tag
-				elementEnd = strstr(elementEnd,"<");
+				elementEnd = strnstr(elementEnd,"<", stringEnd-elementEnd);
 			}
 			
 			// calculate length of cdata content
@@ -700,7 +707,7 @@
 		char * elementEnd = elementStart+1;		
 		while ((elementEnd = strpbrk(elementEnd, "<>"))) {
 			if (strncmp(elementEnd,"<![CDATA[",9) == 0) {
-				elementEnd = strstr(elementEnd,"]]>")+3;
+				elementEnd = strnstr(elementEnd,"]]>", stringEnd-elementEnd)+3;
 			} else {
 				break;
 			}
@@ -790,7 +797,6 @@
 		// <tile> 
 		// find end of element name
 		char * elementNameEnd = strpbrk(xmlElement->name," /\n\r");
-		
 		
 		// if end was found check for attributes
 		if (elementNameEnd) {
