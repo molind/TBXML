@@ -303,7 +303,8 @@
 		829FA09314D5B52A00D18697 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastTestingUpgradeCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "71 Squared";
 			};
 			buildConfigurationList = 829FA09614D5B52A00D18697 /* Build configuration list for PBXProject "TBXML" */;
@@ -463,7 +464,6 @@
 		8290354614D9F5B200ACF7E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -472,6 +472,7 @@
 				GCC_PREFIX_HEADER = "TBXML-Support/TBXML-iOS-Prefix.pch";
 				INFOPLIST_FILE = "TBXML-Tests/Supporting Files/TBXMLTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.71Squared.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = octest;
@@ -481,7 +482,6 @@
 		8290354714D9F5B200ACF7E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -490,6 +490,7 @@
 				GCC_PREFIX_HEADER = "TBXML-Support/TBXML-iOS-Prefix.pch";
 				INFOPLIST_FILE = "TBXML-Tests/Supporting Files/TBXMLTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.71Squared.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -503,6 +504,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -570,6 +572,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TBXML-Support/TBXML-Prefix.pch";
 				INFOPLIST_FILE = "TBXML-Tests/Supporting Files/TBXMLTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.71Squared.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -583,6 +586,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TBXML-Support/TBXML-Prefix.pch";
 				INFOPLIST_FILE = "TBXML-Tests/Supporting Files/TBXMLTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.71Squared.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
