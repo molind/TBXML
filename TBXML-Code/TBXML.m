@@ -689,10 +689,10 @@
 			long textLength = elementEnd-elementStart;
 			
 			// remove begining cdata section tag
-			memcpy(elementStart, elementStart+9, CDATAEnd-elementStart-9);
+			memmove(elementStart, elementStart+9, CDATAEnd-elementStart-9);
 
 			// remove ending cdata section tag
-			memcpy(CDATAEnd-9, CDATAEnd+3, textLength-CDATALength-3);
+			memmove(CDATAEnd-9, CDATAEnd+3, textLength-CDATALength-3);
 			
 			// blank out end of text
 			memset(elementStart+textLength-12,' ',12);
