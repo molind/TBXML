@@ -375,7 +375,7 @@
 	NSString * value = nil;
 	TBXMLAttribute * attribute = aXMLElement->firstAttribute;
 	while (attribute) {
-		if (strlen(attribute->name) == strlen(name) && memcmp(attribute->name,name,strlen(name)) == 0) {
+		if (strcmp(attribute->name,name) == 0) {
 			value = [NSString stringWithCString:&attribute->value[0] encoding:NSUTF8StringEncoding];
 			break;
 		}
@@ -404,7 +404,7 @@
     
 	TBXMLAttribute * attribute = aXMLElement->firstAttribute;
 	while (attribute) {
-		if (strlen(attribute->name) == strlen(name) && memcmp(attribute->name,name,strlen(name)) == 0) {
+		if (strcmp(attribute->name,name) == 0) {
             if (attribute->value[0])
                 value = [NSString stringWithCString:&attribute->value[0] encoding:NSUTF8StringEncoding];
 			break;
@@ -429,7 +429,7 @@
 	TBXMLElement * xmlElement = aParentXMLElement->firstChild;
 	const char * name = [aName cStringUsingEncoding:NSUTF8StringEncoding];
 	while (xmlElement) {
-		if (strlen(xmlElement->name) == strlen(name) && memcmp(xmlElement->name,name,strlen(name)) == 0) {
+		if (strcmp(name, xmlElement->name)==0) {
 			return xmlElement;
 		}
 		xmlElement = xmlElement->nextSibling;
@@ -455,7 +455,7 @@
 	TBXMLElement * xmlElement = aParentXMLElement->firstChild;
 	const char * name = [aName cStringUsingEncoding:NSUTF8StringEncoding];
 	while (xmlElement) {
-		if (strlen(xmlElement->name) == strlen(name) && memcmp(xmlElement->name,name,strlen(name)) == 0) {
+		if (strcmp(xmlElement->name,name) == 0) {
 			return xmlElement;
 		}
 		xmlElement = xmlElement->nextSibling;
@@ -471,7 +471,7 @@
 	TBXMLElement * xmlElement = aXMLElement->nextSibling;
 	const char * name = [aName cStringUsingEncoding:NSUTF8StringEncoding];
 	while (xmlElement) {
-		if (strlen(xmlElement->name) == strlen(name) && memcmp(xmlElement->name,name,strlen(name)) == 0) {
+		if (strcmp(xmlElement->name,name) == 0) {
 			return xmlElement;
 		}
 		xmlElement = xmlElement->nextSibling;
@@ -497,7 +497,7 @@
 	TBXMLElement * xmlElement = aXMLElement->nextSibling;
 	const char * name = [aName cStringUsingEncoding:NSUTF8StringEncoding];
 	while (xmlElement) {
-		if (strlen(xmlElement->name) == strlen(name) && memcmp(xmlElement->name,name,strlen(name)) == 0) {
+		if (strcmp(xmlElement->name,name) == 0) {
 			return xmlElement;
 		}
 		xmlElement = xmlElement->nextSibling;
