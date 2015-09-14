@@ -240,24 +240,31 @@ static char encodingTable[64] = {
 	//   Z_DEFAULT_COMPRESSION
 	
 	if (deflateInit2(&strm, Z_DEFAULT_COMPRESSION, Z_DEFLATED, (15+16), 8, Z_DEFAULT_STRATEGY) != Z_OK) return nil;
-	
-	NSMutableData *compressed = [NSMutableData dataWithLength:16384];  // 16K chunks for expansion
-	
+    
+    size_t mallocSize = 16384;
+    void *buff = malloc(mallocSize);
+    
 	do {
-		if (strm.total_out >= [compressed length])
-			[compressed increaseLengthBy: 16384];
+		if (strm.total_out >= mallocSize)
+        {
+            mallocSize += 16384;
+            buff = realloc(buff, mallocSize);
+        }
 		
-		strm.next_out = [compressed mutableBytes] + strm.total_out;
-		strm.avail_out = (unsigned int)([compressed length] - strm.total_out);
+		strm.next_out = (Bytef *)buff + strm.total_out;
+		strm.avail_out = (unsigned int)(mallocSize - strm.total_out);
 		
 		deflate(&strm, Z_FINISH);  
 		
 	} while (strm.avail_out == 0);
 	
 	deflateEnd(&strm);
-	
-	[compressed setLength: strm.total_out];
-	return [NSData dataWithData:compressed];
+    
+    if(mallocSize != strm.total_out)
+    {
+        buff = realloc(buff, strm.total_out);
+    }
+    return [NSData dataWithBytesNoCopy:buff length:strm.total_out freeWhenDone:YES];
 }
 
 - (NSData *)gzipInflate
@@ -267,7 +274,8 @@ static char encodingTable[64] = {
 	unsigned int full_length = (uint32_t)[self length];
 	unsigned int half_length = (uint32_t)[self length] / 2;
 	
-	NSMutableData *decompressed = [NSMutableData dataWithLength: full_length + half_length];
+    size_t mallocSize = full_length + half_length;
+    void *buff = malloc(mallocSize);
 	BOOL done = NO;
 	int status;
 	
@@ -282,10 +290,13 @@ static char encodingTable[64] = {
 	while (!done)
 	{
 		// Make sure we have enough room and reset the lengths.
-		if (strm.total_out >= [decompressed length])
-			[decompressed increaseLengthBy: half_length];
-		strm.next_out = [decompressed mutableBytes] + strm.total_out;
-		strm.avail_out = (unsigned int)([decompressed length] - strm.total_out);
+		if (strm.total_out >= mallocSize)
+        {
+            mallocSize += half_length;
+            buff = realloc(buff, mallocSize);
+        }
+		strm.next_out = (Bytef *)buff + strm.total_out;
+		strm.avail_out = (unsigned int)(mallocSize - strm.total_out);
 		
 		// Inflate another chunk.
 		status = inflate (&strm, Z_SYNC_FLUSH);
@@ -297,10 +308,13 @@ static char encodingTable[64] = {
 	// Set real length.
 	if (done)
 	{
-		[decompressed setLength: strm.total_out];
-		return [NSData dataWithData: decompressed];
+		return [NSData dataWithBytesNoCopy:buff length:strm.total_out freeWhenDone:YES];
 	}
-	else return nil;
+    else
+    {
+        free(buff);
+        return nil;
+    }
 }
 
 @end
