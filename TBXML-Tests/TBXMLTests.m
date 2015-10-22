@@ -30,7 +30,7 @@
     NSError *error;
     [TBXML tbxmlWithXMLFile:@"some-file-that-doesnt-exist.xml" error:&error];
     
-    STAssertTrue([error code] == D_TBXML_FILE_NOT_FOUND_IN_BUNDLE, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertTrue([error code] == D_TBXML_FILE_NOT_FOUND_IN_BUNDLE, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)testLoadXMLResource
@@ -38,7 +38,7 @@
     NSError *error;
     [TBXML tbxmlWithXMLFile:@"books.xml" error:&error];
     
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)testDataIsNil
@@ -48,7 +48,7 @@
     NSError *error;
     [TBXML tbxmlWithXMLData:data error:&error];
     
-    STAssertTrue([error code] == D_TBXML_DATA_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertTrue([error code] == D_TBXML_DATA_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)testDecodeError
@@ -58,7 +58,7 @@
     NSError *error;
     [TBXML tbxmlWithXMLString:string error:&error];
     
-    STAssertTrue([error code] == D_TBXML_DECODE_FAILURE, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertTrue([error code] == D_TBXML_DECODE_FAILURE, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)testDecodeError2
@@ -68,7 +68,7 @@
     NSError *error;
     [TBXML tbxmlWithXMLString:string error:&error];
     
-    STAssertTrue([error code] == D_TBXML_DECODE_FAILURE, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertTrue([error code] == D_TBXML_DECODE_FAILURE, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
 }
 
 - (void)testElementIsNil
@@ -78,8 +78,8 @@
     NSError *error;
     NSString * name = [TBXML elementName:tbxmlElement error:&error];
     
-    STAssertTrue([error code] == D_TBXML_ELEMENT_IS_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
-    STAssertTrue([name isEqualToString:@""], @"Returned string is not empty");
+    XCTAssertTrue([error code] == D_TBXML_ELEMENT_IS_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertTrue([name isEqualToString:@""], @"Returned string is not empty");
 }
 
 - (void)testNameIsNil
@@ -89,11 +89,11 @@
     NSError *error;
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:&error];
     
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     [TBXML elementName:tbxml.rootXMLElement error:&error];
     
-    STAssertTrue([error code] == D_TBXML_ELEMENT_NAME_IS_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertTrue([error code] == D_TBXML_ELEMENT_NAME_IS_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
 
 }
 
@@ -104,11 +104,11 @@
     NSError *error;
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:&error];
     
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     [TBXML childElementNamed:@"anElement" parentElement:tbxml.rootXMLElement error:&error];
     
-    STAssertTrue([error code] == D_TBXML_ELEMENT_NOT_FOUND, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertTrue([error code] == D_TBXML_ELEMENT_NOT_FOUND, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
 }
 
@@ -118,13 +118,13 @@
     
     NSError *error;
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     TBXMLElement * element = [TBXML childElementNamed:@"child" parentElement:tbxml.rootXMLElement error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     [TBXML nextSiblingNamed:@"child" searchFromElement:element error:&error];
-    STAssertTrue([error code] == D_TBXML_ELEMENT_NOT_FOUND, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);    
+    XCTAssertTrue([error code] == D_TBXML_ELEMENT_NOT_FOUND, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);    
 }
 
 - (void)testAttributeNotFound
@@ -133,13 +133,13 @@
     
     NSError *error;
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     TBXMLElement * element = [TBXML childElementNamed:@"child" parentElement:tbxml.rootXMLElement error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     [TBXML valueOfAttributeNamed:@"someOtherAttrib" forElement:element error:&error];
-    STAssertTrue([error code] == D_TBXML_ATTRIBUTE_NOT_FOUND, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);    
+    XCTAssertTrue([error code] == D_TBXML_ATTRIBUTE_NOT_FOUND, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);    
 }
 
 - (void)testAttributeNameIsNil
@@ -148,13 +148,13 @@
     
     NSError *error;
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     TBXMLElement * element = [TBXML childElementNamed:@"child" parentElement:tbxml.rootXMLElement error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     [TBXML valueOfAttributeNamed:nil forElement:element error:&error];
-    STAssertTrue([error code] == D_TBXML_ATTRIBUTE_NAME_IS_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);    
+    XCTAssertTrue([error code] == D_TBXML_ATTRIBUTE_NAME_IS_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);    
 }
 
 - (void)testTextIsNil
@@ -163,13 +163,13 @@
     
     NSError *error;
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     TBXMLElement * element = [TBXML childElementNamed:@"child" parentElement:tbxml.rootXMLElement error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     [TBXML textForElement:element error:&error];
-    STAssertTrue([error code] == D_TBXML_ELEMENT_TEXT_IS_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);    
+    XCTAssertTrue([error code] == D_TBXML_ELEMENT_TEXT_IS_NIL, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);    
 }
 
 - (void)testSiblingElement
@@ -178,18 +178,18 @@
     
     NSError *error;
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     TBXMLElement * element = [TBXML childElementNamed:@"child" parentElement:tbxml.rootXMLElement error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     TBXMLElement * childElement = [TBXML nextSiblingNamed:@"child" searchFromElement:element error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     NSString * name = [TBXML elementName:childElement error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
-    STAssertTrue([name isEqualToString:@"child"], @"Incorrect Element Returned %@", name);
+    XCTAssertTrue([name isEqualToString:@"child"], @"Incorrect Element Returned %@", name);
 }
 
 - (void)testElementText
@@ -198,13 +198,13 @@
     
     NSError *error;
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     TBXMLElement * element = [TBXML childElementNamed:@"child" parentElement:tbxml.rootXMLElement error:&error];
-    STAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
+    XCTAssertNil(error, @"Incorrect Error Returned %@ %@", [error localizedDescription], [error userInfo]);
     
     NSString * text = [TBXML textForElement:element error:&error];
-    STAssertTrue([text isEqualToString:@"Element Text"], @"Incorrect Element Text %@", text);
+    XCTAssertTrue([text isEqualToString:@"Element Text"], @"Incorrect Element Text %@", text);
 }
 
 - (void)testNoErrorVars
@@ -212,13 +212,13 @@
     NSString *string = @"<?xml version=\"1.0\"?><root><child>Element Text</child></root>";
     
     TBXML * tbxml = [TBXML tbxmlWithXMLString:string error:nil];
-    STAssertTrue(tbxml.rootXMLElement != nil, @"Root element is nil");
+    XCTAssertTrue(tbxml.rootXMLElement != nil, @"Root element is nil");
     
     TBXMLElement * element = [TBXML childElementNamed:@"child" parentElement:tbxml.rootXMLElement];
-    STAssertTrue(tbxml.rootXMLElement != nil, @"Element is nil");
+    XCTAssertTrue(tbxml.rootXMLElement != nil, @"Element is nil");
     
     NSString * text = [TBXML textForElement:element];
-    STAssertTrue([text isEqualToString:@"Element Text"], @"Incorrect Element Text %@", text);
+    XCTAssertTrue([text isEqualToString:@"Element Text"], @"Incorrect Element Text %@", text);
 }
 
 

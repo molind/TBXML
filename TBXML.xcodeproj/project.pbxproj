@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8290352714D9F5B200ACF7E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8290352614D9F5B200ACF7E4 /* Foundation.framework */; };
-		8290353414D9F5B200ACF7E4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829FA0B114D5B52A00D18697 /* SenTestingKit.framework */; };
 		8290353714D9F5B200ACF7E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8290352614D9F5B200ACF7E4 /* Foundation.framework */; };
 		8290353A14D9F5B200ACF7E4 /* libTBXML-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8290352514D9F5B200ACF7E4 /* libTBXML-iOS.a */; };
 		8290354B14D9F6B100ACF7E4 /* TBXML+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 829FA0C914D5B55D00D18697 /* TBXML+Compression.m */; };
@@ -21,7 +20,6 @@
 		8290356214D9F8F300ACF7E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8290355A14D9F8BF00ACF7E4 /* InfoPlist.strings */; };
 		8290356314D9F8F600ACF7E4 /* books.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8290355914D9F8BF00ACF7E4 /* books.xml */; };
 		829FA0A014D5B52A00D18697 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829FA09F14D5B52A00D18697 /* Cocoa.framework */; };
-		829FA0B214D5B52A00D18697 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829FA0B114D5B52A00D18697 /* SenTestingKit.framework */; };
 		829FA0B314D5B52A00D18697 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829FA09F14D5B52A00D18697 /* Cocoa.framework */; };
 		829FA0B614D5B52A00D18697 /* libTBXML.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 829FA09C14D5B52A00D18697 /* libTBXML.a */; };
 		829FA0D014D5B55D00D18697 /* TBXML+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 829FA0C914D5B55D00D18697 /* TBXML+Compression.m */; };
@@ -62,8 +60,7 @@
 		829FA0A214D5B52A00D18697 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		829FA0A314D5B52A00D18697 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		829FA0A414D5B52A00D18697 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		829FA0B014D5B52A00D18697 /* TBXMLTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TBXMLTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		829FA0B114D5B52A00D18697 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		829FA0B014D5B52A00D18697 /* TBXMLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TBXMLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		829FA0C914D5B55D00D18697 /* TBXML+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBXML+Compression.m"; sourceTree = "<group>"; };
 		829FA0CA14D5B55D00D18697 /* TBXML+HTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBXML+HTTP.m"; sourceTree = "<group>"; };
 		829FA0CB14D5B55D00D18697 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
@@ -85,7 +82,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8290353414D9F5B200ACF7E4 /* SenTestingKit.framework in Frameworks */,
 				8290353714D9F5B200ACF7E4 /* Foundation.framework in Frameworks */,
 				8290353A14D9F5B200ACF7E4 /* libTBXML-iOS.a in Frameworks */,
 			);
@@ -103,7 +99,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				829FA0B214D5B52A00D18697 /* SenTestingKit.framework in Frameworks */,
 				829FA0B314D5B52A00D18697 /* Cocoa.framework in Frameworks */,
 				829FA0B614D5B52A00D18697 /* libTBXML.a in Frameworks */,
 			);
@@ -157,7 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				829FA09C14D5B52A00D18697 /* libTBXML.a */,
-				829FA0B014D5B52A00D18697 /* TBXMLTests.octest */,
+				829FA0B014D5B52A00D18697 /* TBXMLTests.xctest */,
 				8290352514D9F5B200ACF7E4 /* libTBXML-iOS.a */,
 				8290353314D9F5B200ACF7E4 /* TBXML-iOSTests.octest */,
 			);
@@ -168,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				829FA09F14D5B52A00D18697 /* Cocoa.framework */,
-				829FA0B114D5B52A00D18697 /* SenTestingKit.framework */,
 				8290352614D9F5B200ACF7E4 /* Foundation.framework */,
 				829FA0A114D5B52A00D18697 /* Other Frameworks */,
 			);
@@ -294,8 +288,8 @@
 			);
 			name = TBXMLTests;
 			productName = TBXMLTests;
-			productReference = 829FA0B014D5B52A00D18697 /* TBXMLTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = 829FA0B014D5B52A00D18697 /* TBXMLTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -303,7 +297,7 @@
 		829FA09314D5B52A00D18697 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastTestingUpgradeCheck = 0700;
+				LastTestingUpgradeCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "71 Squared";
 			};
@@ -568,13 +562,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TBXML-Support/TBXML-Prefix.pch";
 				INFOPLIST_FILE = "TBXML-Tests/Supporting Files/TBXMLTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.71Squared.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -582,13 +575,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TBXML-Support/TBXML-Prefix.pch";
 				INFOPLIST_FILE = "TBXML-Tests/Supporting Files/TBXMLTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.71Squared.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

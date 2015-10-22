@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 71 Squared. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface TBXMLTests : SenTestCase
+@interface TBXMLTests : XCTestCase
 
 @end
